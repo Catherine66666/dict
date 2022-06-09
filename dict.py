@@ -41,8 +41,8 @@ def save_dict(conn):
     cur = conn.cursor()
     cur.execute("COMMIT;")
     cur.close()
-
-while True: ## REPL - Read Execute Program Loop
+def main():
+    while True: ## REPL - Read Execute Program Loop
     cmd = input("Command: ")
     if cmd == "list":
         print("Dictionary:")
@@ -62,3 +62,5 @@ while True: ## REPL - Read Execute Program Loop
         save_dict(conn)
         print("Dictionary is saved and closed")
         exit()
+
+main()
