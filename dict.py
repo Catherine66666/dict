@@ -2,9 +2,15 @@ import psycopg2
 conn = psycopg2.connect(
    host="localhost",
    database="database",
-   user="user",
+   user="user1",
    password="abc123"
 )
+
+print('Hello and welcome to the phone list, available commands:')
+print('  add    - add a phone number')
+print('  delete - delete a contact')
+print('  list   - list all phone numbers')
+print('  quit   - quit the program')
 
 def read_dict(C):
     cur = C.cursor()
