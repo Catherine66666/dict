@@ -7,25 +7,36 @@ conn = psycopg2.connect(
 )
 
 print('Hello and welcome to the phone list, available commands:')
-print('  add    - add a phone number')
-print('  delete - delete a contact')
-print('  list   - list all phone numbers')
+print('  add    - add a word')
+print('  delete - delete a word')
+print('  list   - list all words')
 print('  quit   - quit the program')
 
+# read_dict: returns the list of all dictionary entries:
+#   argument: C - the database connection.
 def read_dict(C):
     cur = C.cursor()
     cur.execute("SELECT id, word, translation FROM dictionary;")
     rows = cur.fetchall()
     cur.close()
     return rows
+# add_word: adds entries into dictionary:
+#   argument: C - the database connection
+#             word - english word
+#             translation - swedish translation.
 def add_word(C, word, translation):
     cur = C.cursor()
     cur.execute(f"INSERT INTO dictionary (word, translation) VALUES ('{word}', '{translation}');")
     cur.close()
+# delete_word: deletes entries from dictionary:
+#   argument: C - the database connection
+#             ID - ID of the entry.
 def delete_word(C, ID):
     cur = C.cursor()
     cur.execute(f"DELETE FROM dictionary WHERE id = '{ID}';")
     cur.close()
+# save_dict: saves dictionary:
+#   argument: C - the database connection
 def save_dict(C):
     cur = C.cursor()
     cur.execute("COMMIT;")
