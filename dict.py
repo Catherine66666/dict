@@ -45,14 +45,20 @@ def save_dict(C):
 while True: ## REPL - Read Execute Program Loop
     cmd = input("Command: ")
     if cmd == "list":
+        print("Dictionary:")
         print(read_dict(conn))
     elif cmd == "add":
         name = input("  Word: ")
         phone = input("  Translation: ")
         add_word(conn, name, phone)
+        print(f"Added word {name}")
     elif cmd == "delete":
         ID = input("  ID: ")
+        cur = conn.cursor()
+        name = cur.execute(f"SELECT word FROM dictionary where id = '{ID}';")
+        print(f"Word {name} is removed. I need some help fixing this printout")
         delete_word(conn, ID)
     elif cmd == "quit":
         save_dict(conn)
+        print("Dictionary is saved and closed")
         exit()
