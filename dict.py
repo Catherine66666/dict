@@ -13,32 +13,32 @@ print('  list   - list all words')
 print('  quit   - quit the program')
 
 # read_dict: returns the list of all dictionary entries:
-#   argument: C - the database connection.
-def read_dict(C):
-    cur = C.cursor()
+#   argument: Conn - the database connection.
+def read_dict(conn):
+    cur = conn.cursor()
     cur.execute("SELECT id, word, translation FROM dictionary;")
     rows = cur.fetchall()
     cur.close()
     return rows
 # add_word: adds entries into dictionary:
-#   argument: C - the database connection
+#   argument: Conn - the database connection
 #             word - english word
 #             translation - swedish translation.
-def add_word(C, word, translation):
-    cur = C.cursor()
+def add_word(conn, word, translation):
+    cur = conn.cursor()
     cur.execute(f"INSERT INTO dictionary (word, translation) VALUES ('{word}', '{translation}');")
     cur.close()
 # delete_word: deletes entries from dictionary:
-#   argument: C - the database connection
+#   argument: Conn - the database connection
 #             ID - ID of the entry.
-def delete_word(C, ID):
-    cur = C.cursor()
+def delete_word(conn, ID):
+    cur = conn.cursor()
     cur.execute(f"DELETE FROM dictionary WHERE id = '{ID}';")
     cur.close()
 # save_dict: saves dictionary:
-#   argument: C - the database connection
-def save_dict(C):
-    cur = C.cursor()
+#   argument: Conn - the database connection
+def save_dict(conn):
+    cur = conn.cursor()
     cur.execute("COMMIT;")
     cur.close()
 
